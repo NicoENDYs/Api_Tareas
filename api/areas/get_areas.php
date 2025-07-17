@@ -1,40 +1,54 @@
 <?php
-// ✅ Incluir la clase Patient (que internamente necesita PDO)
 require_once '../../tareas.php';
 
-// Encabezado para indicar que la respuesta es JSON
+// Set JSON response header
 header('Content-Type: application/json');
 
-// Validar que la conexión a la base de datos ($pdo) exista
-if (!isset($pdo)) {
-    //Error 500 si la conexión no está disponible
-    http_response_code(500);
-    echo json_encode(['success' => false, 'error' => 'Error interno: conexión a base de datos no disponible']);
-    exit();
-}
-    
-// Instanciar la clase con la conexión
-$clases = new Areas($pdo);
-
-try {
-    // Obtener todos los áreas
-    $areas = $clases->getAreas();
-
-    // Si hay áreas, devolver con estado 200 OK
-    if ($areas && count($areas) > 0) {
-        http_response_code(200);
-        echo json_encode(['success' => true, 'data' => $areas]);
-    } else {
-        // Si no hay datos, responder con 204 No Content (opcionalmente se puede usar 200 con lista vacía)
-        http_response_code(204);
-        echo json_encode(['success' => true, 'data' => []]);
-    }
-} catch (Exception $e) {
-    // Error inesperado al obtener los datos
-    http_response_code(500);
+// Only allow GET requests
+if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+    http_response_code(405); // Method Not Allowed
     echo json_encode([
         'success' => false,
-        'error' => 'Error al obtener Areas',
+        'error' => 'Method not allowed. Only GET requests are accepted.'
+    ]);
+    exit();
+}
+
+// Validate database connection
+if (!isset($pdo)) {
+    http_response_code(500); // Internal Server Error
+    echo json_encode([
+        'success' => false,
+        'error' => 'Database connection unavailable'
+    ]);
+    exit();
+}
+
+try {
+    $areas = new Areas($pdo);
+    $result = $areas->getAreas();
+    
+    if ($result && count($result) > 0) {
+        http_response_code(200); // OK
+        echo json_encode([
+            'success' => true,
+            'data' => $result,
+            'count' => count($result)
+        ]);
+    } else {
+        http_response_code(200); // OK (empty list is still successful)
+        echo json_encode([
+            'success' => true,
+            'data' => [],
+            'count' => 0,
+            'message' => 'No areas found'
+        ]);
+    }
+} catch (Exception $e) {
+    http_response_code(500); // Internal Server Error
+    echo json_encode([
+        'success' => false,
+        'error' => 'Failed to retrieve areas',
         'details' => $e->getMessage()
     ]);
 }
