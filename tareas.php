@@ -212,4 +212,58 @@ class Empleados
         return $stmt->execute([$id]);
     }
 }
+
+class Estados
+{
+    private $pdo;
+
+    public function __construct($pdo)
+    {
+        $this->pdo = $pdo;
+    }
+
+    // Obtener todos los estados
+    public function getEstados()
+    {
+        $stmt = $this->pdo->query("SELECT * FROM Estados");
+        return $stmt->fetchAll();
+    }
+
+    // Obtener un estado por ID
+    public function getOneEstado($id)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM Estados WHERE id = ?");
+        if (!is_numeric($id) ) {
+            throw new InvalidArgumentException("Los valores de ID deben ser numéricos");
+        }
+        $stmt->execute([$id]);
+        return $stmt->fetch();
+    }
+    // Crear un nuevo estado
+    public function createEstado($data)
+    {
+        $stmt = $this->pdo->prepare("INSERT INTO Estados (nombre) VALUES (?)");
+        $nombre = filter_var($data['nombre'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        return $stmt->execute([$nombre]);
+    }
+    // Actualizar un estado existente
+    public function updateEstado($id, $data)
+    {
+        $stmt = $this->pdo->prepare("UPDATE Estados SET nombre = ? WHERE id = ?");
+        $nombre = filter_var($data['nombre'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if (!is_numeric($id) ) {
+            throw new InvalidArgumentException("Los valores de ID deben ser numéricos");
+        }
+        return $stmt->execute([$nombre, $id]);
+    }
+    //Eliminar
+    public function deleteEstado($id)
+    {
+        $stmt = $this->pdo->prepare("DELETE FROM Estados WHERE id = ?");
+        if (!is_numeric($id) ) {
+            throw new InvalidArgumentException("Los valores de ID deben ser numéricos");
+        }
+        return $stmt->execute([$id]);
+    }
+}
 ?>
