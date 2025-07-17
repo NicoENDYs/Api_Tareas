@@ -141,3 +141,66 @@ class Areas
         return $stmt->execute([$id]);
     }
 }
+
+
+//Empleado class
+
+class Empleados
+{
+    private $pdo;
+
+    public function __construct($pdo)
+    {
+        $this->pdo = $pdo;
+    }
+
+    // Obtener todos los empleados
+    public function getEmpleados()
+    {
+        $stmt = $this->pdo->query("SELECT * FROM Empleados");
+        return $stmt->fetchAll();
+    }
+
+    // Obtener un empleado por ID
+    public function getOneEmpleado($id)
+    {
+        $stmt = $this->pdo->prepare("SELECT * FROM Empleados WHERE identificacion = ?");
+        if (!is_numeric($id) ) {
+            throw new InvalidArgumentException("Los valores de identificacion deben ser numéricos");
+        }
+        $stmt->execute([$id]);
+        return $stmt->fetch();
+    }   
+    // Crear un nuevo empleado
+    public function createEmpleado($data)
+    {
+        $stmt = $this->pdo->prepare("INSERT INTO Empleados (identificacion, nombres, apellidos, telefono) VALUES (?, ?, ?, ?)");
+        $identificacion = filter_var($data['identificacion'], FILTER_SANITIZE_NUMBER_INT);
+        $nombre = filter_var($data['nombres'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $apellido = filter_var($data['apellidos'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $telefono = filter_var($data['telefono'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        if (!is_numeric($identificacion) ) {
+            throw new InvalidArgumentException("Los valores de identificacion deben ser numéricos");
+        }
+
+        return $stmt->execute([$identificacion, $nombre, $apellido, $telefono]);
+    }
+
+    // Actualizar un empleado existente
+    public function updateEmpleado($id, $data)
+    {
+        $stmt = $this->pdo->prepare("   UPDATE Empleados SET nombres = ?, apellidos = ?, telefono = ? WHERE identificacion = ?");
+        // Sanitización de los valores antes de la ejecución
+        $nombres = filter_var($data['nombres'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $apellidos = filter_var($data['apellidos'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $telefono = filter_var($data['telefono'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+
+        if (!is_numeric($id) ) {
+            throw new InvalidArgumentException("Los valores de identificacion deben ser numéricos");
+        }
+
+        return $stmt->execute([$nombres, $apellidos, $telefono, $id]);
+}
+}
+?>
