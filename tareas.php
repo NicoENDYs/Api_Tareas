@@ -31,7 +31,7 @@ class Tareas
     public function getOne($id)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM Tareas WHERE id = ?");
-        if (!is_numeric($id) ) {
+        if (!is_numeric($id)) {
             throw new InvalidArgumentException("Los valores de ID deben ser numéricos");
         }
         $stmt->execute([$id]);
@@ -42,12 +42,12 @@ class Tareas
     public function create($data)
     {
         $stmt = $this->pdo->prepare("INSERT INTO Tareas (descripcion, prioridad, area_id) VALUES (?, ?, ?)");
-        
+
         $descripcion = filter_var($data['descripcion'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $prioridad = filter_var($data['prioridad'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $area_id = filter_var($data['area_id'], FILTER_SANITIZE_NUMBER_INT);
 
-        if (!is_numeric($area_id) ) {
+        if (!is_numeric($area_id)) {
             throw new InvalidArgumentException("Los valores de área deben ser numéricos");
         }
 
@@ -103,7 +103,7 @@ class Areas
     public function getOneArea($id)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM Areas WHERE id = ?");
-        if (!is_numeric($id) ) {
+        if (!is_numeric($id)) {
             throw new InvalidArgumentException("Los valores de ID deben ser numéricos");
         }
         $stmt->execute([$id]);
@@ -125,7 +125,7 @@ class Areas
         $descripcion = filter_var($data['descripcion'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
         // Validación adicional (opcional pero recomendado)
-        if ( !is_numeric($id)) {
+        if (!is_numeric($id)) {
             throw new InvalidArgumentException("Los valores de ID deben ser numéricos");
         }
 
@@ -133,7 +133,7 @@ class Areas
         return $stmt->execute([$nombre, $descripcion, $id]);
     }
 
-    
+
     // Eliminar una area
     public function deleteArea($id)
     {
@@ -165,12 +165,12 @@ class Empleados
     public function getOneEmpleado($id)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM Empleados WHERE identificacion = ?");
-        if (!is_numeric($id) ) {
+        if (!is_numeric($id)) {
             throw new InvalidArgumentException("Los valores de identificacion deben ser numéricos");
         }
         $stmt->execute([$id]);
         return $stmt->fetch();
-    }   
+    }
     // Crear un nuevo empleado
     public function createEmpleado($data)
     {
@@ -180,7 +180,7 @@ class Empleados
         $apellido = filter_var($data['apellidos'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $telefono = filter_var($data['telefono'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-        if (!is_numeric($identificacion) ) {
+        if (!is_numeric($identificacion)) {
             throw new InvalidArgumentException("Los valores de identificacion deben ser numéricos");
         }
 
@@ -196,7 +196,7 @@ class Empleados
         $apellidos = filter_var($data['apellidos'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
         $telefono = filter_var($data['telefono'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
-        if (!is_numeric($id) ) {
+        if (!is_numeric($id)) {
             throw new InvalidArgumentException("Los valores de identificacion deben ser numéricos");
         }
 
@@ -206,7 +206,7 @@ class Empleados
     public function deleteEmpleado($id)
     {
         $stmt = $this->pdo->prepare("DELETE FROM Empleados WHERE identificacion = ?");
-        if (!is_numeric($id) ) {
+        if (!is_numeric($id)) {
             throw new InvalidArgumentException("Los valores de identificacion deben ser numéricos");
         }
         return $stmt->execute([$id]);
@@ -233,7 +233,7 @@ class Estados
     public function getOneEstado($id)
     {
         $stmt = $this->pdo->prepare("SELECT * FROM Estados WHERE id = ?");
-        if (!is_numeric($id) ) {
+        if (!is_numeric($id)) {
             throw new InvalidArgumentException("Los valores de ID deben ser numéricos");
         }
         $stmt->execute([$id]);
@@ -251,7 +251,7 @@ class Estados
     {
         $stmt = $this->pdo->prepare("UPDATE Estados SET nombre = ? WHERE id = ?");
         $nombre = filter_var($data['nombre'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-        if (!is_numeric($id) ) {
+        if (!is_numeric($id)) {
             throw new InvalidArgumentException("Los valores de ID deben ser numéricos");
         }
         return $stmt->execute([$nombre, $id]);
@@ -260,10 +260,135 @@ class Estados
     public function deleteEstado($id)
     {
         $stmt = $this->pdo->prepare("DELETE FROM Estados WHERE id = ?");
-        if (!is_numeric($id) ) {
+        if (!is_numeric($id)) {
             throw new InvalidArgumentException("Los valores de ID deben ser numéricos");
         }
         return $stmt->execute([$id]);
     }
 }
-?>
+
+class Asignaciones
+{
+    private $pdo;
+
+    public function __construct($pdo)
+    {
+        $this->pdo = $pdo;
+    }
+
+    // Obtener todas las asignaciones con detalles completos
+    public function getAll()
+    {
+        $sql = "SELECT 
+                    a.id,
+                    a.fecha_asignacion,
+                    a.fecha_entrega,
+                    e.nombres AS empleado_nombres,
+                    e.apellidos AS empleado_apellidos,
+                    t.descripcion AS tarea_descripcion,
+                    t.prioridad AS tarea_prioridad,
+                    es.nombre AS estado_nombre
+                FROM Asignaciones a
+                JOIN Empleados e ON a.empleado_identificacion = e.identificacion
+                JOIN Tareas t ON a.tarea_id = t.id
+                JOIN Estados es ON a.estado_id = es.id";
+
+        $stmt = $this->pdo->query($sql);
+        return $stmt->fetchAll();
+    }
+
+    // Obtener una asignación por ID con detalles completos
+    public function getOne($id)
+    {
+        $sql = "SELECT 
+                    a.id,
+                    a.fecha_asignacion,
+                    a.fecha_entrega,
+                    e.identificacion AS empleado_id,
+                    e.nombres AS empleado_nombres,
+                    e.apellidos AS empleado_apellidos,
+                    t.id AS tarea_id,
+                    t.descripcion AS tarea_descripcion,
+                    t.prioridad AS tarea_prioridad,
+                    es.id AS estado_id,
+                    es.nombre AS estado_nombre
+                FROM Asignaciones a
+                JOIN Empleados e ON a.empleado_identificacion = e.identificacion
+                JOIN Tareas t ON a.tarea_id = t.id
+                JOIN Estados es ON a.estado_id = es.id
+                WHERE a.id = ?";
+
+        $stmt = $this->pdo->prepare($sql);
+        $stmt->execute([$id]);
+        return $stmt->fetch();
+    }
+
+    // Crear una nueva asignación
+    public function create($data)
+    {
+        $stmt = $this->pdo->prepare("INSERT INTO Asignaciones 
+                                    (empleado_identificacion, tarea_id, estado_id, fecha_asignacion, fecha_entrega) 
+                                    VALUES (?, ?, ?, ?, ?)");
+
+        // Sanitización y validación
+        $empleado_identificacion = filter_var($data['empleado_identificacion'], FILTER_SANITIZE_NUMBER_INT);
+        $tarea_id = filter_var($data['tarea_id'], FILTER_SANITIZE_NUMBER_INT);
+        $estado_id = filter_var($data['estado_id'], FILTER_SANITIZE_NUMBER_INT);
+        $fecha_asignacion = filter_var($data['fecha_asignacion'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $fecha_entrega = isset($data['fecha_entrega']) ? filter_var($data['fecha_entrega'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : null;
+
+        if (!is_numeric($empleado_identificacion) || !is_numeric($tarea_id) || !is_numeric($estado_id)) {
+            throw new InvalidArgumentException("Los IDs deben ser valores numéricos");
+        }
+
+        return $stmt->execute([
+            $empleado_identificacion,
+            $tarea_id,
+            $estado_id,
+            $fecha_asignacion,
+            $fecha_entrega
+        ]);
+    }
+
+    // Actualizar una asignación existente
+    public function update($id, $data)
+    {
+        $stmt = $this->pdo->prepare("UPDATE Asignaciones 
+                                    SET empleado_identificacion = ?, 
+                                        tarea_id = ?, 
+                                        estado_id = ?, 
+                                        fecha_asignacion = ?, 
+                                        fecha_entrega = ? 
+                                    WHERE id = ?");
+
+        // Sanitización y validación
+        $empleado_id = filter_var($data['empleado_identificacion'], FILTER_SANITIZE_NUMBER_INT);
+        $tarea_id = filter_var($data['tarea_id'], FILTER_SANITIZE_NUMBER_INT);
+        $estado_id = filter_var($data['estado_id'], FILTER_SANITIZE_NUMBER_INT);
+        $fecha_asignacion = filter_var($data['fecha_asignacion'], FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $fecha_entrega = isset($data['fecha_entrega']) ? filter_var($data['fecha_entrega'], FILTER_SANITIZE_FULL_SPECIAL_CHARS) : null;
+
+        if (!is_numeric($id) || !is_numeric($empleado_id) || !is_numeric($tarea_id) || !is_numeric($estado_id)) {
+            throw new InvalidArgumentException("Los IDs deben ser valores numéricos");
+        }
+
+        return $stmt->execute([
+            $empleado_id,
+            $tarea_id,
+            $estado_id,
+            $fecha_asignacion,
+            $fecha_entrega,
+            $id
+        ]);
+    }
+
+    // Eliminar una asignación
+    public function delete($id)
+    {
+        $stmt = $this->pdo->prepare("DELETE FROM Asignaciones WHERE id = ?");
+        if (!is_numeric($id)) {
+            throw new InvalidArgumentException("El ID debe ser un valor numérico");
+        }
+        return $stmt->execute([$id]);
+    }
+}
