@@ -140,7 +140,7 @@ Los empleados son las personas que pueden tener tareas asignadas.
 
 #### Actualizar empleado
 - **URL:** `/empleado/update.php`
-- **Método:** `POST`
+- **Método:** `PUT`
 - **Parámetros:**
   - `id` (query string): Identificación del empleado a actualizar
 - **Content-Type:** `application/json`
