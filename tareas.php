@@ -201,6 +201,15 @@ class Empleados
         }
 
         return $stmt->execute([$nombres, $apellidos, $telefono, $id]);
-}
+    }
+    // Eliminar un empleado
+    public function deleteEmpleado($id)
+    {
+        $stmt = $this->pdo->prepare("DELETE FROM Empleados WHERE identificacion = ?");
+        if (!is_numeric($id) ) {
+            throw new InvalidArgumentException("Los valores de identificacion deben ser numéricos");
+        }
+        return $stmt->execute([$id]);
+    }
 }
 ?>

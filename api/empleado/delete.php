@@ -2,10 +2,10 @@
 require_once '../../tareas.php';
 
 $id = $_GET['id'] ?? null;
-$tareas = new Tareas($pdo);
+$empleados = new Empleados($pdo);
 
 if ($id) {
-    $success = $tareas->delete($id);
+    $success = $empleados->deleteEmpleado($id);
     echo json_encode(['success' => $success]);
 } else {
     http_response_code(400);
