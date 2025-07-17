@@ -1,0 +1,719 @@
+type: collection.insomnia.rest/5.0
+name: API TAREAS
+meta:
+  id: wrk_81485cc865f14d4699a07eea78c0ef1e
+  created: 1752693394339
+  modified: 1752693394339
+collection:
+  - name: Areas
+    meta:
+      id: fld_0f4effcd259847fe8f7dabbf6b3c2cf8
+      created: 1752699510409
+      modified: 1752704030491
+      sortKey: -1752699510410
+    children:
+      - url: http://localhost:8000/api/areas/get_areas.php
+        name: Get_All_Areas
+        meta:
+          id: req_a0054a6578c943f9be4815c26fab43d4
+          created: 1752699520000
+          modified: 1752704256449
+          isPrivate: false
+          sortKey: -1752676042890.25
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/api/areas/get_id.php?id=1
+        name: Get_ID
+        meta:
+          id: req_b061f0b04177464cb1f948303a1f8df9
+          created: 1752699848533
+          modified: 1752699909984
+          isPrivate: false
+          sortKey: -1752652560614.5
+        method: GET
+        parameters:
+          - id: pair_a5a7ed78ac3f4c899191ff6d00ac70c7
+            disabled: false
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/api/areas/create.php
+        name: Crear_Area
+        meta:
+          id: req_6d372501b31040a69e5744c53ea03ffa
+          created: 1752700071233
+          modified: 1752700198810
+          isPrivate: false
+          sortKey: -1752652560514.5
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nombre": "Matematicas",
+            	"descripcion": "Sumar"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/api/areas/delete.php?id=9
+        name: Eliminar_Area
+        meta:
+          id: req_70be21fc5d74480c97985e6b0c924bcc
+          created: 1752703543168
+          modified: 1752704665242
+          isPrivate: false
+          sortKey: -1752629078188.75
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/api/areas/create.php?id=1
+        name: Put_Area
+        meta:
+          id: req_60b770923a4d4df08d513b6e44e8b3ad
+          created: 1752704041414
+          modified: 1752704273214
+          isPrivate: false
+          sortKey: -1752629078288.75
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nombre": "Matematicas algebra",
+            	"descripcion": "Sumar y sumar"
+            }
+        parameters:
+          - id: pair_023cd9d5b43d4154803e3d32f7d30b2f
+            name: id
+            value: "1"
+            disabled: true
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Tareas
+    meta:
+      id: fld_0f7c2e4c98ac4d56b72172ee45fbe7f7
+      created: 1752699618055
+      modified: 1752703586471
+      sortKey: -1752699618055
+    children:
+      - url: http://localhost:8000/api/tareas/get_id.php?id=8
+        name: Get_ID
+        meta:
+          id: req_2f74fd58c8184fc3934a4d9f0c48a045
+          created: 1752693396931
+          modified: 1752703852544
+          isPrivate: false
+          sortKey: -1752703567932
+        method: GET
+        parameters:
+          - id: pair_533efa0a0d324128b670611d23918716
+            disabled: true
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/api/tareas/get_all.php
+        name: Get_All
+        meta:
+          id: req_50b9777740b949e68c3bba7837786957
+          created: 1752697925116
+          modified: 1752703641696
+          isPrivate: false
+          sortKey: -1752703568032
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/api/tareas/create.php
+        name: Crear_Tarea
+        meta:
+          id: req_b477362c2f46416a90195aba51282965
+          created: 1752698455349
+          modified: 1752703578214
+          isPrivate: false
+          sortKey: -1752703567782
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"descripcion": "Crear Tres API",
+            			"prioridad": "Importante",
+            			"area_id": "1"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/api/tareas/update.php?id=7
+        name: Put_Tarea
+        meta:
+          id: req_cb491dba098446adb0e35071af17a7b8
+          created: 1752700384377
+          modified: 1752703581008
+          isPrivate: false
+          sortKey: -1752703567757
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"descripcion": "monte",
+            			"prioridad": "ESPAÑA",
+            			"area_id": "2"
+            }
+        parameters:
+          - id: pair_d73ebeed54f34f85b831cbfa80e7c50a
+            disabled: true
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/api/tareas/delete.php?id=6
+        name: Eliminar_Tarea
+        meta:
+          id: req_3538e366c8f446af92535871b568a953
+          created: 1752704414560
+          modified: 1752704414560
+          isPrivate: false
+          sortKey: -1752689805261.125
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Empleado
+    meta:
+      id: fld_82d02b76a67b497cac810ff88a5ea2f8
+      created: 1752719125508
+      modified: 1752722088071
+      sortKey: -1752719125508
+    children:
+      - url: http://localhost:8000/api/empleado/get_all.php
+        name: Get_All_Empleado
+        meta:
+          id: req_b7ee5697ab3b415fa05c52a30f2e3346
+          created: 1752719138249
+          modified: 1752719770858
+          isPrivate: false
+          sortKey: -1752719141244
+        method: GET
+        parameters:
+          - id: pair_1887af1c368549d681b4be68a8427064
+            name: id
+            value: "1"
+            disabled: true
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/api/empleado/get_id.php?id=17899952
+        name: Get_ID
+        meta:
+          id: req_c75d34ef72a64b08948521c788d2a800
+          created: 1752719745078
+          modified: 1752719745078
+          isPrivate: false
+          sortKey: -1752711354638
+        method: GET
+        parameters:
+          - id: pair_1887af1c368549d681b4be68a8427064
+            name: id
+            value: "1"
+            disabled: true
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/api/empleado/create.php
+        name: Crear_Empleado
+        meta:
+          id: req_1cc9981acd6648bbb71ea34d27fb0be8
+          created: 1752719926039
+          modified: 1752720468792
+          isPrivate: false
+          sortKey: -1752707461335
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"identificacion": "1321132",
+            	"nombres": "nico",
+            	"apellidos":"guari",
+            	"telefono":"310"
+            }
+        parameters:
+          - id: pair_1887af1c368549d681b4be68a8427064
+            name: id
+            value: "1"
+            disabled: true
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/api/empleado/update.php?id=1113861471
+        name: PUT_Empleado
+        meta:
+          id: req_a74e92ee655642a99941077aea94a6e1
+          created: 1752721038691
+          modified: 1752721524065
+          isPrivate: false
+          sortKey: -1752705514683.5
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nombres": "Nico",
+            	"apellidos":"Molina",
+            	"telefono":"310"
+            }
+        parameters:
+          - id: pair_1887af1c368549d681b4be68a8427064
+            name: id
+            value: "1"
+            disabled: true
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/api/empleado/delete.php?id=789
+        name: Eliminar_Empleado
+        meta:
+          id: req_3ac8215bac6b4f6883949094919571bf
+          created: 1752722081505
+          modified: 1752722126441
+          isPrivate: false
+          sortKey: -1752705514583.5
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Estados
+    meta:
+      id: fld_45b945e9a6de4d74a95d6bd647c677f2
+      created: 1752722300809
+      modified: 1752727694907
+      sortKey: -1752709371781.5
+    children:
+      - url: http://localhost:8000/api/estado/get_all.php
+        name: Get_All_Estado
+        meta:
+          id: req_823bf8fb92c6452c9e7f402798d5e443
+          created: 1752722300811
+          modified: 1752723260718
+          isPrivate: false
+          sortKey: -1752719141244
+        method: GET
+        parameters:
+          - id: pair_1887af1c368549d681b4be68a8427064
+            name: id
+            value: "1"
+            disabled: true
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/api/estado/get_id.php?id=1
+        name: Get_ID
+        meta:
+          id: req_76eef20ce4ae466b82c5e903bee4fc72
+          created: 1752722300815
+          modified: 1752723301205
+          isPrivate: false
+          sortKey: -1752711354638
+        method: GET
+        parameters:
+          - id: pair_1887af1c368549d681b4be68a8427064
+            name: id
+            value: "1"
+            disabled: true
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/api/estado/create.php
+        name: Crear_Estado
+        meta:
+          id: req_3e21be4c998a44fc8b15dac18dcefeaa
+          created: 1752722300817
+          modified: 1752726231897
+          isPrivate: false
+          sortKey: -1752707461335
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nombre": "Espera"
+            }
+        parameters:
+          - id: pair_1887af1c368549d681b4be68a8427064
+            name: id
+            value: "1"
+            disabled: true
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/api/estado/update.php?id=1
+        name: PUT_Estado
+        meta:
+          id: req_95ee90ed111a400985c62fb881c1deef
+          created: 1752722300819
+          modified: 1752726754282
+          isPrivate: false
+          sortKey: -1752705514683.5
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"nombre": "eeee"
+            }
+        parameters:
+          - id: pair_1887af1c368549d681b4be68a8427064
+            name: id
+            value: "1"
+            disabled: true
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/api/estado/delete.php?id=5
+        name: Eliminar_Estado
+        meta:
+          id: req_16b11836d55e4110a5507810854be9fa
+          created: 1752722300821
+          modified: 1752726470842
+          isPrivate: false
+          sortKey: -1752705514583.5
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Asignaciones
+    meta:
+      id: fld_c6d9c675c92244c2a82c1d86193d6b71
+      created: 1752727714732
+      modified: 1752727714732
+      sortKey: -1752699564232.5
+    children:
+      - url: http://localhost:8000/api/asignaciones/get_id.php?id=2
+        name: Get_ID
+        meta:
+          id: req_b6494335b7c2490e9ba569369be7eeea
+          created: 1752727714733
+          modified: 1752728561762
+          isPrivate: false
+          sortKey: -1752703567932
+        method: GET
+        parameters:
+          - id: pair_533efa0a0d324128b670611d23918716
+            disabled: true
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/api/asignaciones/get_all.php
+        name: Get_All
+        meta:
+          id: req_55df8cfbe08a43109222cea54297a7b2
+          created: 1752727714735
+          modified: 1752728571153
+          isPrivate: false
+          sortKey: -1752703568032
+        method: GET
+        parameters:
+          - id: pair_eb78fba31e254516a4e4d34ad2768a45
+            name: id
+            value: "1"
+            disabled: true
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/api/asignaciones/create.php
+        name: Crear_Asignacion
+        meta:
+          id: req_b59378484cd84f208e00f4f13fc9f38b
+          created: 1752727714737
+          modified: 1752729396868
+          isPrivate: false
+          sortKey: -1752703567782
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            		"empleado_identificacion": "17899952",	
+            		"tarea_id": 9,
+            		"estado_id": 3,
+            		"fecha_asignacion": "2025-07-17 04:47:46",
+            		"fecha_entrega": "2025-07-24 23:47:13"
+            	}
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/api/asignaciones/update.php?id=3
+        name: Put_Asignacion
+        meta:
+          id: req_93e3476a3b9d439c88c34bd8848e4bba
+          created: 1752727714740
+          modified: 1752729488747
+          isPrivate: false
+          sortKey: -1752703567757
+        method: PUT
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            		"empleado_identificacion": "17899952",	
+            		"tarea_id": 9,
+            		"estado_id": 2,
+            		"fecha_asignacion": "2025-07-17 04:47:46",
+            		"fecha_entrega": "2025-07-24 23:47:13"
+            	}
+        parameters:
+          - id: pair_d73ebeed54f34f85b831cbfa80e7c50a
+            disabled: true
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: http://localhost:8000/api/asignaciones/delete.php?id=3
+        name: Eliminar_Asignacion
+        meta:
+          id: req_76901949353344018891d0173bd06876
+          created: 1752727714742
+          modified: 1752729514530
+          isPrivate: false
+          sortKey: -1752689805261.125
+        method: DELETE
+        headers:
+          - name: User-Agent
+            value: insomnia/11.0.2
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_13d36b43ee01f22870435ee2bb43ad81d4ddded3
+    created: 1752693394346
+    modified: 1752693394346
+environments:
+  name: Base Environment
+  meta:
+    id: env_13d36b43ee01f22870435ee2bb43ad81d4ddded3
+    created: 1752693394343
+    modified: 1752693394343
+    isPrivate: false
